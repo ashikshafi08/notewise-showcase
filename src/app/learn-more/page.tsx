@@ -15,8 +15,6 @@ import {
   BrainCircuit,
   Layers,
   Sparkles,
-  FileText,
-  BookOpen,
   Mail
 } from 'lucide-react';
 import Link from 'next/link';

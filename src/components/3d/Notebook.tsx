@@ -1,45 +1,54 @@
 "use client";
 
-import { useRef, useEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { useGLTF, Float } from '@react-three/drei';
+import { useRef } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
-export function Notebook(props: any) {
-  // This is a simplified notebook model for demonstration
-  // In a real implementation, you would load a proper GLTF model
-  const meshRef = useRef<THREE.Mesh>(null!);
+interface NotebookProps {
+  position?: [number, number, number];
+  rotation?: [number, number, number];
+  [key: string]: any;
+}
+
+export function Notebook(props: NotebookProps) {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const { viewport } = useThree();
   
-  useFrame((state) => {
-    if (!meshRef.current) return;
-    meshRef.current.rotation.y = Math.sin(state.clock.getElapsedTime() * 0.3) * 0.2;
+  useFrame(({ clock }) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y = Math.sin(clock.getElapsedTime() * 0.3) * 0.2;
+      meshRef.current.rotation.x = Math.sin(clock.getElapsedTime() * 0.2) * 0.1;
+    }
   });
 
   return (
-    <Float
-      speed={2} // Animation speed
-      rotationIntensity={0.5} // Rotation intensity
-      floatIntensity={0.5} // Float intensity
+    <mesh
+      {...props}
+      ref={meshRef}
+      scale={viewport.width < 10 ? [0.6, 0.6, 0.6] : [0.8, 0.8, 0.8]}
     >
-      <group {...props}>
-        {/* Notebook base */}
-        <mesh ref={meshRef} castShadow receiveShadow>
-          <boxGeometry args={[3, 0.2, 4]} />
-          <meshStandardMaterial color="#8b5cf6" />
+      <boxGeometry args={[1.5, 0.2, 2]} />
+      <meshStandardMaterial color="#6366f1" />
+      
+      {/* Pages */}
+      <mesh position={[0, 0.11, 0]}>
+        <boxGeometry args={[1.4, 0.02, 1.9]} />
+        <meshStandardMaterial color="#f8fafc" />
+      </mesh>
+      
+      {/* Cover details */}
+      <mesh position={[0, 0.12, 0.8]} rotation={[0, 0, 0]}>
+        <planeGeometry args={[1, 0.3]} />
+        <meshStandardMaterial color="#4f46e5" />
+      </mesh>
+      
+      {/* Spiral binding */}
+      {Array.from({ length: 10 }).map((_, i) => (
+        <mesh key={i} position={[0, 0.15, -0.8 + i * 0.2]}>
+          <torusGeometry args={[0.05, 0.02, 16, 16, Math.PI]} />
+          <meshStandardMaterial color="#94a3b8" metalness={0.8} />
         </mesh>
-        
-        {/* Notebook screen */}
-        <mesh position={[0, 0.2, 0]} castShadow>
-          <boxGeometry args={[2.8, 0.1, 3.8]} />
-          <meshStandardMaterial color="#f3f4f6" />
-        </mesh>
-        
-        {/* Notebook keyboard area */}
-        <mesh position={[0, 0.2, 1.8]} castShadow>
-          <boxGeometry args={[2.8, 0.05, 0.8]} />
-          <meshStandardMaterial color="#d1d5db" />
-        </mesh>
-      </group>
-    </Float>
+      ))}
+    </mesh>
   );
 }

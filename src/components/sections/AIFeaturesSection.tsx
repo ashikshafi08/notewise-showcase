@@ -1,106 +1,72 @@
 "use client";
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ScrollReveal } from '../animations/ScrollReveal';
-import { FloatingIcons } from '../animations/FloatingIcons';
 import { 
   Brain, 
-  Search, 
   Sparkles, 
-  BookOpen, 
-  PenTool, 
-  RefreshCw, 
-  Globe, 
-  FileText,
-  Lightbulb,
-  BookMarked,
-  BarChart,
-  FileCheck,
-  Edit,
-  RotateCw,
-  Globe2,
-  FileCode,
-  Bot,
-  Zap,
-  MessageSquare,
-  Wand2
+  Lightbulb, 
 } from 'lucide-react';
-
-// Animation for feature icons
-const iconAnimation = {
-  hidden: { scale: 0.8, opacity: 0 },
-  visible: { 
-    scale: 1, 
-    opacity: 1,
-    transition: { 
-      duration: 0.5,
-      type: "spring",
-      stiffness: 100
-    }
-  }
-};
-
-// Animation for feature cards
-const cardAnimation = {
-  hidden: { y: 20, opacity: 0 },
-  visible: (i: number) => ({
-    y: 0,
-    opacity: 1,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.5
-    }
-  })
-};
+import { FloatingIcons } from '@/components/animations/FloatingIcons';
 
 export function AIFeaturesSection() {
-  const [activeTab, setActiveTab] = useState('smart-suggestions');
-  const iconSize = "h-5 w-5 text-primary/70";
-  const floatingIcons = [
-    <Brain key="brain" className="h-6 w-6 text-primary/40" />,
-    <Sparkles key="sparkles" className="h-4 w-4 text-blue-400/40" />,
-    <Lightbulb key="lightbulb" className="h-5 w-5 text-yellow-400/40" />,
-    <Search key="search" className="h-4 w-4 text-purple-400/40" />,
-    <Bot key="bot" className="h-5 w-5 text-green-400/40" />,
-    <Zap key="zap" className="h-4 w-4 text-orange-400/40" />,
-    <MessageSquare key="message" className="h-5 w-5 text-pink-400/40" />,
-    <Wand2 key="wand" className="h-4 w-4 text-indigo-400/40" />,
+  const features = [
+    {
+      icon: <Brain className="h-8 w-8 text-blue-500" />,
+      title: "Smart Knowledge Organization",
+      description: "Our AI automatically categorizes and links your notes, creating a knowledge graph that helps you see connections between ideas."
+    },
+    {
+      icon: <Sparkles className="h-8 w-8 text-purple-500" />,
+      title: "Context-Aware Suggestions",
+      description: "As you write, our AI suggests relevant information from your existing notes, helping you build on your knowledge."
+    },
+    {
+      icon: <Lightbulb className="h-8 w-8 text-amber-500" />,
+      title: "Insight Generation",
+      description: "Discover patterns and insights in your notes that you might have missed, helping you generate new ideas."
+    },
   ];
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
+
   return (
-    <section id="ai-features" className="py-20 px-4 md:px-8 lg:px-16 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
-      {/* Background Elements */}
-      <motion.div 
-        className="absolute -top-32 -left-32 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"
-        animate={{ 
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3]
-        }}
-        transition={{ 
-          duration: 8, 
-          repeat: Infinity,
-          repeatType: "reverse" 
-        }}
-      />
-      <motion.div 
-        className="absolute -bottom-32 -right-32 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"
-        animate={{ 
-          scale: [1.2, 1, 1.2],
-          opacity: [0.3, 0.5, 0.3]
-        }}
-        transition={{ 
-          duration: 8, 
-          repeat: Infinity,
-          repeatType: "reverse",
-          delay: 4
-        }}
-      />
-      
-      {/* Floating icons background */}
-      <FloatingIcons icons={floatingIcons} className="absolute inset-0 opacity-30" />
+    <section id="ai-features" className="py-24 px-4 relative overflow-hidden bg-gradient-to-b from-background/80 to-background">
+      {/* Background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <FloatingIcons 
+          className="absolute inset-0"
+          icons={[
+            <Brain key="brain1" className="h-6 w-6 text-blue-500/20" />,
+            <Sparkles key="sparkles1" className="h-8 w-8 text-purple-500/20" />,
+            <Lightbulb key="lightbulb1" className="h-7 w-7 text-amber-500/20" />,
+            <Brain key="brain2" className="h-5 w-5 text-blue-500/20" />,
+            <Sparkles key="sparkles2" className="h-6 w-6 text-purple-500/20" />,
+            <Lightbulb key="lightbulb2" className="h-8 w-8 text-amber-500/20" />,
+            <Brain key="brain3" className="h-7 w-7 text-blue-500/20" />,
+            <Sparkles key="sparkles3" className="h-5 w-5 text-purple-500/20" />,
+          ]}
+        />
+      </div>
       
       <div className="max-w-6xl mx-auto relative">
         <div className="text-center mb-16">
@@ -120,9 +86,9 @@ export function AIFeaturesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl md:text-4xl font-bold mb-4"
+            className="text-3xl md:text-4xl font-bold mb-6"
           >
-            Supercharge Your Notes with AI
+            Enhance Your Note-Taking with AI
           </motion.h2>
           
           <motion.p
@@ -132,380 +98,88 @@ export function AIFeaturesSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
           >
-            NoteWise leverages cutting-edge AI to enhance your note-taking experience, helping you write better, think clearer, and organize your thoughts effortlessly.
+            NoteWise leverages cutting-edge AI to transform how you capture, organize, and utilize your notes.
           </motion.p>
         </div>
         
-        <Tabs defaultValue="smart-suggestions" onValueChange={setActiveTab} className="w-full">
-          <ScrollReveal>
-            <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-8">
-              <TabsTrigger value="smart-suggestions" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                Smart Suggestions
-              </TabsTrigger>
-              <TabsTrigger value="research-assistant" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                Research Assistant
-              </TabsTrigger>
-              <TabsTrigger value="writer-companion" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                Writer Companion
-              </TabsTrigger>
-              <TabsTrigger value="knowledge-graph" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                Knowledge Graph
-              </TabsTrigger>
-            </TabsList>
-          </ScrollReveal>
-          
-          {/* Smart Suggestions Tab */}
-          <TabsContent value="smart-suggestions" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <motion.div
-                custom={0}
-                initial="hidden"
-                animate={activeTab === 'smart-suggestions' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <Brain className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Contextual Recommendations</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Get intelligent suggestions based on your current notes and writing patterns.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              
-              <motion.div
-                custom={1}
-                initial="hidden"
-                animate={activeTab === 'smart-suggestions' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <Sparkles className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Idea Expansion</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Transform brief thoughts into comprehensive concepts.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              
-              <motion.div
-                custom={2}
-                initial="hidden"
-                animate={activeTab === 'smart-suggestions' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <Lightbulb className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Insight Generation</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Discover patterns and connections across your notes.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              
-              <motion.div
-                custom={3}
-                initial="hidden"
-                animate={activeTab === 'smart-suggestions' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <BarChart className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Learning Patterns</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Personalized suggestions that improve over time.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </div>
-          </TabsContent>
-          
-          {/* Research Assistant Tab */}
-          <TabsContent value="research-assistant" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <motion.div
-                custom={0}
-                initial="hidden"
-                animate={activeTab === 'research-assistant' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <Search className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Automatic Research Suggestions</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Get relevant research materials as you write.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              
-              <motion.div
-                custom={1}
-                initial="hidden"
-                animate={activeTab === 'research-assistant' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <FileCheck className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Information Gap Detection</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Identify missing information in your research.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              
-              <motion.div
-                custom={2}
-                initial="hidden"
-                animate={activeTab === 'research-assistant' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <BookMarked className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Dynamic Bibliography Creation</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Automatically generate and format citations.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              
-              <motion.div
-                custom={3}
-                initial="hidden"
-                animate={activeTab === 'research-assistant' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <Globe className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Source Quality Assessment</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Evaluate the reliability of information sources.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </div>
-          </TabsContent>
-          
-          {/* Writer Companion Tab */}
-          <TabsContent value="writer-companion" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <motion.div
-                custom={0}
-                initial="hidden"
-                animate={activeTab === 'writer-companion' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <Edit className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Intelligent Writing Assistant</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Get real-time suggestions to improve your writing.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              
-              <motion.div
-                custom={1}
-                initial="hidden"
-                animate={activeTab === 'writer-companion' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <RotateCw className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Iterative Refinement</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Progressively improve your content through AI-guided iterations.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              
-              <motion.div
-                custom={2}
-                initial="hidden"
-                animate={activeTab === 'writer-companion' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <Globe2 className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Web Research Integration</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Seamlessly incorporate web research into your writing.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              
-              <motion.div
-                custom={3}
-                initial="hidden"
-                animate={activeTab === 'writer-companion' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <FileCode className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Content Templates</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Start with intelligent templates tailored to your needs.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </div>
-          </TabsContent>
-          
-          {/* Knowledge Graph Tab */}
-          <TabsContent value="knowledge-graph" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <motion.div
-                custom={0}
-                initial="hidden"
-                animate={activeTab === 'knowledge-graph' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <BookOpen className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Automatic Connection Mapping</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Visualize relationships between your notes and ideas.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              
-              <motion.div
-                custom={1}
-                initial="hidden"
-                animate={activeTab === 'knowledge-graph' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <PenTool className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Concept Extraction</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Automatically identify key concepts in your notes.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              
-              <motion.div
-                custom={2}
-                initial="hidden"
-                animate={activeTab === 'knowledge-graph' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <RefreshCw className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Dynamic Organization</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Your notes reorganize themselves based on context and relationships.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              
-              <motion.div
-                custom={3}
-                initial="hidden"
-                animate={activeTab === 'knowledge-graph' ? "visible" : "hidden"}
-                variants={cardAnimation}
-              >
-                <Card className="h-full border-2 border-primary/10 hover:border-primary/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <FileText className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Semantic Search</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      Find what you're looking for, even if you don't remember the exact words.
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </div>
-          </TabsContent>
-        </Tabs>
-        
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-16 text-center"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
         >
-          <Card className="max-w-3xl mx-auto border-2 border-yellow-400 dark:border-yellow-600 bg-yellow-50 dark:bg-yellow-900/20">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-4">
-                <div className="h-12 w-12 rounded-full bg-yellow-100 dark:bg-yellow-900/50 flex items-center justify-center flex-shrink-0">
-                  <motion.div
-                    animate={{ rotate: [0, 10, -10, 0] }}
-                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                  >
-                    <Zap className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
-                  </motion.div>
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className="bg-card border rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow"
+            >
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-lg bg-primary/10">
+                  {feature.icon}
                 </div>
-                <div className="text-left">
-                  <h3 className="font-bold text-lg mb-1">Coming Soon: Journal Assistant</h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Our upcoming Journal Assistant will help you maintain consistent journaling habits, provide prompts for reflection, and analyze your entries for patterns and insights.
-                  </p>
+                <div>
+                  <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </motion.div>
+          ))}
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+          className="mt-16 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl p-8 border border-primary/20"
+        >
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="md:w-1/2">
+              <h3 className="text-2xl font-bold mb-4">Experience the Future of Note-Taking</h3>
+              <p className="mb-6">
+                Our AI doesn't just store your notes - it understands them, connects them, and helps you get more value from your knowledge. It's like having a research assistant that knows everything you've ever written.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <div className="flex items-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-blue-500"></div>
+                  <span>Natural language processing</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-purple-500"></div>
+                  <span>Semantic search</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-amber-500"></div>
+                  <span>Personalized learning</span>
+                </div>
+              </div>
+            </div>
+            <div className="md:w-1/2 bg-card rounded-xl p-6 border">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <Brain className="h-5 w-5 text-primary" />
+                  <div className="text-sm font-medium">NoteWise AI Assistant</div>
+                </div>
+                <div className="pl-8 border-l-2 border-primary/30 py-2">
+                  <div className="bg-primary/5 rounded-lg p-3 text-sm">
+                    I notice you're writing about machine learning algorithms. Would you like me to link this to your previous notes on neural networks?
+                  </div>
+                </div>
+                <div className="pl-8 border-l-2 border-gray-300/30 py-2">
+                  <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3 text-sm">
+                    Yes, please connect these notes and suggest any relevant research papers I've highlighted.
+                  </div>
+                </div>
+                <div className="pl-8 border-l-2 border-primary/30 py-2">
+                  <div className="bg-primary/5 rounded-lg p-3 text-sm">
+                    I've linked your notes and found 3 research papers you've highlighted on convolutional neural networks that might be relevant to your current topic.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
