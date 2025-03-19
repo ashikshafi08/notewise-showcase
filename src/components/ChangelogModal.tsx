@@ -65,7 +65,19 @@ const changelogItems: ChangelogItem[] = [
     description: "Integrating AI capabilities for smart note suggestions and organization.",
     date: "April 10, 2025",
     status: "planned"
-  }
+  }, 
+   {
+    title: "Replaced OpenAi with OpenRouter, using Gemini flash 2.0 ",
+    description: "Cut down costs massively by choosing gemini 2.0, now it gives me more room to implement better features",
+    date: "March 19, 2025",
+    status: "completed"
+  }, 
+    {
+    title: "Improve document analysis, working on it",
+    description: "For now it presents basic things one wants to know, but want to make it more interactive and integrated to the editor",
+    date: "March 19, 2025",
+    status: "planning"
+  },
 ];
 
 export function ChangelogModal({ isOpen, onClose }: ChangelogModalProps) {
